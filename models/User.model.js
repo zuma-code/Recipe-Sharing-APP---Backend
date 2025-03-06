@@ -22,9 +22,16 @@ const userSchema = new Schema(
       type: String,  
       default: "images/default-avatar.png"  
     },
-    location: {    
-      city: String
+    location: {
+      type: {
+        city: String
+      },
+      default: {}
     },
+  },
+  {
+    // this second object adds extra properties: `createdAt` and `updatedAt`
+    timestamps: true,
   },
   {
     // this second object adds extra properties: `createdAt` and `updatedAt`

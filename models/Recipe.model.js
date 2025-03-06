@@ -39,10 +39,11 @@ const recipeSchema = new Schema(
          type: String,
          default: "https://images.media-allrecipes.com/images/75131.jpg"
           },
-  author: {
-         type: mongoose.Schema.Types.ObjectId,
-         ref: "User",
-         required: true },
+          author: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "User",
+            required: false // Change to false temporarily for testing
+          },
   createdAt: {
          type: Date,
          default: Date.now }

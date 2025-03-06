@@ -6,7 +6,7 @@ const recipeSchema = new Schema(
     title:{
         type:String,
         required:[true, "Title is required"],
-        unique: true,
+        unique: false,
         trim: true,
         },
     cuisine: {
@@ -42,7 +42,7 @@ const recipeSchema = new Schema(
           author: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "User",
-            required: false // Change to false temporarily for testing
+            required: [true, "Author is required"],
           },
   createdAt: {
          type: Date,

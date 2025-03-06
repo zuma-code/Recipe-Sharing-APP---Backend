@@ -12,7 +12,7 @@ router.post('/recipes', (req, res, next) => {
     Recipe.create({ title, cuisine, level, duration, ingredients, instructions, image, author })
       .then((response) => res.json(response))
       .catch((err) => {
-        console.log("Error while creating the recipe", err);
+        console.log("Error while creating the recipe", err.message);
         res.status(500).json({ message: "Error while creating the recipe" });
       });
   });

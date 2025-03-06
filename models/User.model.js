@@ -1,4 +1,4 @@
-const { Schema, model } = require("mongoose");
+const { Schema, model} = require("mongoose");
 
 // TODO: Please make sure you edit the User model to whatever makes sense in this case
 const userSchema = new Schema(
@@ -17,6 +17,13 @@ const userSchema = new Schema(
     name: {
       type: String,
       required: [true, "Name is required."],
+    },
+    avatarUrl: {
+      type: String,  
+      default: "images/default-avatar.png"  
+    },
+    location: {    
+      city: String
     },
   },
   {

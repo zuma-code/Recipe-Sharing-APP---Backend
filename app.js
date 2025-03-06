@@ -5,6 +5,8 @@ require("dotenv").config();
 // ℹ️ Connects to the database
 require("./db/index");
 require("./models/User.model");
+require("./models/Recipe.model");
+require("./models/Comment.model");
 
 // Handles http requests (express is node js framework)
 // https://www.npmjs.com/package/express
@@ -21,6 +23,10 @@ app.use("/api", indexRoutes);
 
 const authRoutes = require("./routes/auth.routes");
 app.use("/auth", authRoutes);
+
+const recipeRouter= require('./routes/recipe.routes');
+app.use('/api', recipeRouter);
+
 
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes
 require("./error-handling")(app);

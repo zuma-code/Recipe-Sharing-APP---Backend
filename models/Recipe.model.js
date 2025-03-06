@@ -1,36 +1,54 @@
-const { Schema, model } = require("mongoose");
+const { Schema, model, mongoose } = require("mongoose");
+
 
 const recipeSchema = new Schema(
 {
     title:{
         type:String,
         required:[true, "Title is required"],
-        lowercase: true,
+        unique: true,
         trim: true,
-    
+        },
+    cuisine: {
+         type: String,
+         required: true,
+         trim: true
+        },
+    level:
+         { type: String,
+         enum: ["Easy Peasy", "Amateur Chef", "UltraPro Chef"] 
+        },
+    duration:
+        { type: Number,
+         min: 0,
+         required: true,
+         trim: true,
+        },
+
+    ingredients:{
+        type:[String],
+        required:[true, "Ingredients are required"],
+        trim: true
     },
-    description:{
-        type:String,
-        required:[true, "Description is required"],
-   },
-   instructions:{
+      
+    instructions:{
         type:[String],
         required:[true, "Description is required"],
    },
-   imageUrl: { 
-        type: String,
-         required: false }, // URL of the image
+   image: { 
+         type: String,
+         default: "https://images.media-allrecipes.com/images/75131.jpg"
+          },
   author: {
-     type: mongoose.Schema.Types.ObjectId,
-      ref: "User", required: true },
+         type: mongoose.Schema.Types.ObjectId,
+         ref: "User",
+         required: true },
   createdAt: {
-     type: Date,
-      default: Date.now }
+         type: Date,
+         default: Date.now }
   },
-   {
-    timestamps: true,
-    } 
+  
 );
 
-const Recipe = model("Recipe", recipeSchema);
-module.expoers= Recipe;
+const Recipe = mongoose.model("Recipe", recipeSchema);
+module.exports= Recipe;

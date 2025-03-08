@@ -1,4 +1,5 @@
-const { Schema, model, mongoose } = require("mongoose");
+const mongoose = require("mongoose");
+const { Schema, model } = mongoose;
 
 
 const recipeSchema = new Schema(
@@ -6,50 +7,59 @@ const recipeSchema = new Schema(
     title:{
         type:String,
         required:[true, "Title is required"],
-        unique: false,
         trim: true,
         },
     cuisine: {
          type: String,
-         required: true,
+         required: [true, "Cuisine is required"],
          trim: true
         },
+    dishType: {
+            type: String,
+            enum: ["Vegetarian", "Vegan", "Meat", "Fish", "Seafood", "Dessert", "Other"],
+            required: true,
+          },
+
     level:
          { type: String,
-         enum: ["Easy Peasy", "Amateur Chef", "UltraPro Chef"] 
+         enum: ["Easy Peasy", "Amateur Chef", "UltraPro Chef"],
+         required: [true, "Level is required"],
         },
     duration:
         { type: Number,
-         min: 0,
-         required: true,
-         trim: true,
+         min: 0,       
+        required: [true, "Duration is required"],
+       
+        },
+    servings:
+        { type: Number,
+         min: 1,       
+        required: [true, "Servings are required"],
         },
 
     ingredients:{
         type:[String],
         required:[true, "Ingredients are required"],
-        trim: true
     },
       
     instructions:{
         type:[String],
-        required:[true, "Description is required"],
+        required:[true, "Instructions are required"],
    },
    image: { 
          type: String,
-         default: "https://images.media-allrecipes.com/images/75131.jpg"
-          },
-          author: {
+         default: "https://images.media-allrecipes.com/images/75131.jpg",
+        
+        },
+    author: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "User",
             required: [true, "Author is required"],
           },
-  createdAt: {
-         type: Date,
-         default: Date.now }
+        
   },
-  
+  { timestamps: true } // This adds createdAt & updatedAt automatically
 );
 
-const Recipe = mongoose.model("Recipe", recipeSchema);
+const Recipe = model("Recipe", recipeSchema);
 module.exports= Recipe;

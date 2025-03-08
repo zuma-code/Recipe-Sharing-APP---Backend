@@ -21,22 +21,9 @@ const userSchema = new Schema(
     avatarUrl: {
       type: String,  
       default: "images/default-avatar.png"  
-    },
-    location: {
-      type: {
-        city: String
-      },
-      default: {}
-    },
-  },
-  {
-    // this second object adds extra properties: `createdAt` and `updatedAt`
-    timestamps: true,
-  },
-  {
-    // this second object adds extra properties: `createdAt` and `updatedAt`
-    timestamps: true,
+    }
   }
+ 
 );
 
 const User = model("User", userSchema);

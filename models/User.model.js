@@ -18,6 +18,12 @@ const userSchema = new Schema(
       type: String,
       required: [true, "Name is required."],
     },
+    bio: {
+      type: String      
+    },
+    favoriteFood: {
+      type: String     
+    },
     avatarUrl: {
       type: String,  
       default: "images/default-avatar.png"  

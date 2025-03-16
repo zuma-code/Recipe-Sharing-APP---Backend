@@ -52,14 +52,14 @@ router.get('/user/:userId', (req, res, next) => {
     });
 });
 
-// PUT /user/users/:userId - Update a specific user
+// PUT /user/user/:userId - Update a specific user
 router.put('/user/:userId', (req, res, next) => {
   const { userId } = req.params;
-  const { email, password, name, avatarUrl} = req.body;
+  const { email, password, name, avatarUrl, bio, favoriteFood } = req.body;
   
   User.findByIdAndUpdate(
     userId, 
-    { email, password, name, avatarUrl}, 
+    { email, password, name, avatarUrl, bio, favoriteFood}, 
     { new: true } // This option returns the updated document
   )
     .then((updatedUser) => {

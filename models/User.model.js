@@ -21,7 +21,12 @@ const userSchema = new Schema(
     avatarUrl: {
       type: String,  
       default: "images/default-avatar.png"  
-    }
+    },
+    role: {
+      type: String,
+      enum: ['user', 'admin'], // Only these two roles are allowed
+      default: 'user', // Default role is 'user'
+    },
   }
  
 );

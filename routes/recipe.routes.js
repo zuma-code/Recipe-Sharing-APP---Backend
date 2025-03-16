@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const Recipe = require('../models/Recipe.model');
 
-//  POST /api/recipes  -  Creates a new recipe
+//  POST /recipe/recipes  -  Creates a new recipe
 router.post('/recipes', (req, res, next) => {
     const { title, cuisine, dishType, level, duration, servings, ingredients, instructions, image, author } = req.body;
     
@@ -29,7 +29,7 @@ router.post('/recipes', (req, res, next) => {
       });
   });
 
-  // GET /api/recipes - Get all recipes
+  // GET /recipe/recipes - Get all recipes
   router.get('/recipes', (req, res, next) => {
     Recipe.find()
       .then((allRecipes) => res.json(allRecipes))
@@ -39,7 +39,7 @@ router.post('/recipes', (req, res, next) => {
       });
   });
   
-  // GET /api/recipes/:recipeId - Get a specific recipe
+  // GET /recipe/recipes/:recipeId - Get a specific recipe
   router.get('/recipes/:recipeId', (req, res, next) => {
     const { recipeId } = req.params;
     

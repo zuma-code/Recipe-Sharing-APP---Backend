@@ -25,13 +25,14 @@ const authRoutes = require("./routes/auth.routes");
 app.use("/auth", authRoutes);
 
 const recipeRouter= require('./routes/recipe.routes');
-app.use('/api', recipeRouter);
+app.use('/recipe', recipeRouter);
 
 const userRouter= require('./routes/user.routes');
-app.use('/api', userRouter);
+app.use('/user', userRouter);
 
-const commentRouter= require('./routes/comment.routes');
-app.use('/api', userRouter);
+const commentRouter = require('./routes/comment.routes');
+app.use('/comment', commentRouter); 
+
 
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes
 require("./error-handling")(app);

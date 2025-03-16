@@ -1,8 +1,10 @@
 const router = require('express').Router();
 const User = require('../models/User.model');
 
-// POST /api/users - Create a new user
-router.post('/users', (req, res, next) => {
+
+
+// POST /user/user - Create a new user
+router.post('/user', (req, res, next) => {
   const { email, password, name, avatarUrl} = req.body;
   
   if (!email || !password || !name) {
@@ -17,9 +19,15 @@ router.post('/users', (req, res, next) => {
     });
 });
 
-// GET /api/users - Get all users
+//Add query parameters for pagination. Get all users       ** ADMIN ONLY
+
 router.get('/users', (req, res, next) => {
+  const { page = 1, limit = 10 } = req.query;
+  const skip = (page - 1) * limit;
+
   User.find()
+    .skip(skip)
+    .limit(limit)
     .then((allUsers) => res.json(allUsers))
     .catch((err) => {
       console.log("Error while getting all users", err);
@@ -27,8 +35,8 @@ router.get('/users', (req, res, next) => {
     });
 });
 
-// GET /api/users/:userId - Get a specific user
-router.get('/users/:userId', (req, res, next) => {
+// GET /user/user/:userId - Get a specific user
+router.get('/user/:userId', (req, res, next) => {
   const { userId } = req.params;
   
   User.findById(userId)
@@ -44,14 +52,14 @@ router.get('/users/:userId', (req, res, next) => {
     });
 });
 
-// PUT /api/users/:userId - Update a specific user
-router.put('/users/:userId', (req, res, next) => {
+// PUT /user/users/:userId - Update a specific user
+router.put('/user/:userId', (req, res, next) => {
   const { userId } = req.params;
-  const { email, password, name, avatarUrl, location } = req.body;
+  const { email, password, name, avatarUrl} = req.body;
   
   User.findByIdAndUpdate(
     userId, 
-    { email, password, name, avatarUrl, location }, 
+    { email, password, name, avatarUrl}, 
     { new: true } // This option returns the updated document
   )
     .then((updatedUser) => {
@@ -66,8 +74,8 @@ router.put('/users/:userId', (req, res, next) => {
     });
 });
 
-// DELETE /api/users/:userId - Delete a specific user
-router.delete('/users/:userId', (req, res, next) => {
+// DELETE /users/users/:userId - Delete a specific user
+router.delete('/user/:userId', (req, res, next) => {
   const { userId } = req.params;
   
   User.findByIdAndDelete(userId)

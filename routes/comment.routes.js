@@ -2,7 +2,7 @@ const router = require('express').Router();
 const Comment = require('../models/Comment.model');
 const Recipe = require("../models/Recipe.model");
 
-//  POST /api/comments  -  Creates a new comment
+//  POST /comment/comments  -  Creates a new comment
 router.post('/comments', (req, res, next) => {
     const {user, recipe, text } = req.body;
     
@@ -33,29 +33,8 @@ router.get("/:recipeId", async (req, res) => {
     }
   });
   
-  // ✅ Update a Comment
-  router.put("/:commentId", async (req, res) => {
-    try {
-      const { commentId } = req.params;
-      const { text } = req.body;
   
-      const updatedComment = await Comment.findByIdAndUpdate(
-        commentId,
-        { text },
-        { new: true }
-      );
-  
-      if (!updatedComment) {
-        return res.status(404).json({ error: "Comment not found" });
-      }
-  
-      res.json({ message: "Comment updated", updatedComment });
-    } catch (error) {
-      res.status(400).json({ error: error.message });
-    }
-  });
-  
-  // ✅ Delete a Comment
+  // ✅ Delete a Comment  **  ADMIN ONLY
   router.delete("/:commentId", async (req, res) => {
     try {
       const { commentId } = req.params;

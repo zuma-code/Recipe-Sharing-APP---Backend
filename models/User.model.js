@@ -31,7 +31,7 @@ const userSchema = new Schema(
     role: {
       type: String,
       enum: ['user', 'admin'], // Only these two roles are allowed
-      default: 'user', // Default role is 'user'
+      default: 'user', 
     },
   }
  

@@ -58,7 +58,7 @@ router.post("/signup", (req, res, next) => {
 
       // Create the new user in the database
       // We return a pending promise, which allows us to chain another `then`
-    
+    n
       
      
       const role = req.body.role || "user"; // Default to "user" if not provided

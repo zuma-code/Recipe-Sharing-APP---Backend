@@ -1,4 +1,4 @@
-Recipe Sharing App: this repository is the FrontEnd
+Recipe Sharing App: 
 About the Project
 
 The Recipe Sharing App is a full-stack MERN (MongoDB, Express, React, Node.js) web application where users can create, share, and save their favorite recipes. Users can sign up, log in, and manage their own recipes, while admins have the ability to manage all users and recipes.

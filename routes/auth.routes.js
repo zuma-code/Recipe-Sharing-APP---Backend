@@ -58,10 +58,7 @@ router.post("/signup", (req, res, next) => {
 
       // Create the new user in the database
       // We return a pending promise, which allows us to chain another `then`
-      const validRoles = ['user', 'admin'];
-      if (!validRoles.includes(req.body.role)) {
-        return res.status(400).json({ message: "Invalid role" });
-      }
+    
       
      
       const role = req.body.role || "user"; // Default to "user" if not provided

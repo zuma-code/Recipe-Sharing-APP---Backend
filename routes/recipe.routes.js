@@ -54,15 +54,37 @@ router.post("/recipes", isAuth, (req, res, next) => {
 // GET /recipe/recipes - Get all recipes
 router.get("/recipes", (req, res, next) => {
   Recipe.find({})
-    .then((allRecipes) => res.json(allRecipes))
+      .populate("author", "name")
+      .sort({ createdAt: -1 })
+      .then((allRecipes) => res.json(allRecipes))
+      .catch((err) => {
+        console.log("Error while getting all recipes", err.message);
+        res.status(500).json({ message: "Error while getting all recipes" });
+      });
+});
+
+// GET /recipe/recipes/byUser/userId - Get a specific recipe
+router.get("/recipes/byUser/:userId", (req, res, next) => {
+  const { userId } = req.params;
+
+  Recipe.find({author:userId})
+   
+    .then((recipes) => {
+      if (!recipes || recipes.length === 0 ) {
+        return res.status(404).json({ message: "Recipes not found" });
+      }
+      res.json(recipes);
+    })
     .catch((err) => {
-      console.log("Error while getting all recipes", err.message);
-      res.status(500).json({ message: "Error while getting all recipes" });
+      console.log("Error while getting a specific recipe", err.message);
+      res
+        .status(500)
+        .json({ message: "Error while getting a specific recipe" });
     });
 });
 
-// GET /recipe/recipes/:recipeId - Get a specific recipe
-router.get("/recipes/:recipeId", (req, res, next) => {
+// GET /recipe/recipes/byRecipe/:recipeId - Get a specific recipe
+router.get("/recipes/byRecipe/:recipeId", (req, res, next) => {
   const { recipeId } = req.params;
 
   Recipe.findById(recipeId)
@@ -81,7 +103,7 @@ router.get("/recipes/:recipeId", (req, res, next) => {
     });
 });
 
-// PUT /api/recipes/:recipeId - Update a specific recipe
+// PUT /recipe/recipes/:recipeId - Update a specific recipe
 router.put("/recipes/:recipeId", isAuth, (req, res, next) => {
   const { recipeId } = req.params;
   const {

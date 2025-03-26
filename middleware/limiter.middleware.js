@@ -1,4 +1,5 @@
-import { rateLimit } from 'express-rate-limit'
+
+const rateLimit = require("express-rate-limit"); 
 
 const limiter = rateLimit({
 	windowMs: 15 * 60 * 1000, // 15 minutes
@@ -9,4 +10,4 @@ const limiter = rateLimit({
 })
 
 // Apply the rate limiting middleware to all requests.
-app.use(limiter)
+module.exports = limiter; // Export the middleware

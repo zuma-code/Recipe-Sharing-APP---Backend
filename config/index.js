@@ -30,6 +30,8 @@ module.exports = (app) => {
     })
   );
 
+  app.use(limiter);
+
   // In development environment the app logs
   app.use(logger("dev"));
 
